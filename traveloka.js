@@ -289,12 +289,20 @@ const doGetData = (tvtime,tvsess,nonce) => new Promise((resolve,reject) =>
                         const getting = await doGetData(log.context.tvLifetime,log.context.tvSession,log.context.nonce);
                         if(getting.data.itineraryEntryList[0] !== undefined)
                         {
-                            console.log(chalk`You have {bold.green ${getting.data.itineraryEntryList.length} } orders.`);
+                            console.log(chalk`You have {bold.green ${getting.data.itineraryEntryList.length}} orders.`);
                             console.log("");
-                            let i = 1;
                             getting.data.itineraryEntryList.forEach(async function (isidia) {
-                                console.log(+i+". "+ isidia.cardDetailInfo.culinaryDetailInfo.culinaryRedemptionPlaces[0].restaurantName + " -> " + isidia.cardDetailInfo.culinaryDetailInfo.bookingVoucherList[0].voucherUrl+ " ");
-                                i++;
+                                console.log("Booking ID    : "+isidia.bookingId);
+                                console.log("Nama Restoran : "+isidia.cardDetailInfo.culinaryDetailInfo.culinaryRedemptionPlaces[0].restaurantName);
+                                console.log("Memiliki "+isidia.cardDetailInfo.culinaryDetailInfo.bookingVoucherList.length+" Link");
+                                console.log("Voucher List ");
+                                console.log("");
+                                let i =1;
+                                isidia.cardDetailInfo.culinaryDetailInfo.bookingVoucherList.forEach(async function(doubleLink) {
+                                    console.log(chalk`${i}. {bold.green ${doubleLink.voucherUrl}}`);
+                                    i++;
+                                });
+                                console.log("");
                             });
                             await delay (1000);
                             console.log('');
@@ -322,10 +330,18 @@ const doGetData = (tvtime,tvsess,nonce) => new Promise((resolve,reject) =>
             {
                 console.log(chalk`You have {bold.green ${getting.data.itineraryEntryList.length}} orders.`);
                 console.log("");
-                let i = 1;
                 getting.data.itineraryEntryList.forEach(async function (isidia) {
-                    console.log(+i+". "+ isidia.cardDetailInfo.culinaryDetailInfo.culinaryRedemptionPlaces[0].restaurantName + " -> " + isidia.cardDetailInfo.culinaryDetailInfo.bookingVoucherList[0].voucherUrl+ " ");
-                    i++;
+                    console.log("Booking ID    : "+isidia.bookingId);
+                    console.log("Nama Restoran : "+isidia.cardDetailInfo.culinaryDetailInfo.culinaryRedemptionPlaces[0].restaurantName);
+                    console.log("Memiliki "+isidia.cardDetailInfo.culinaryDetailInfo.bookingVoucherList.length+" Link");
+                    console.log("Voucher List ");
+                    console.log("");
+                    let i =1;
+                    isidia.cardDetailInfo.culinaryDetailInfo.bookingVoucherList.forEach(async function(doubleLink) {
+                        console.log(chalk`${i}. {bold.green ${doubleLink.voucherUrl}}`);
+                        i++;
+                    });
+                    console.log("");
                 });
                 await delay (1000);
                 console.log('');
